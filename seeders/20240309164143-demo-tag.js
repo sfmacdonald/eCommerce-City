@@ -2,7 +2,7 @@
 
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await queryInterface.bulkInsert('Tags', [{
+    await queryInterface.bulkInsert('tags', [{
       tag_name: 'Bestseller',
       createdAt: new Date(),
       updatedAt: new Date()
@@ -14,6 +14,6 @@ module.exports = {
   },
 
   async down (queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Tags', null, {});
+    await queryInterface.bulkDelete('tags', null, {});
   }
 };
