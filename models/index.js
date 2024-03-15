@@ -1,9 +1,10 @@
+// models/index.js
+
 'use strict';
 
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
-const process = require('process');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/../config/config.json')[env];
@@ -16,6 +17,7 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
+// Read all model files in the directory and import them
 fs
   .readdirSync(__dirname)
   .filter(file => {
@@ -31,13 +33,29 @@ fs
     db[model.name] = model;
   });
 
+// Execute the associate function for each model to set up associations
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
 });
 
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+// Set up associations
+const Product = db.Product;
+const Category = db.Category;
+const Tag = db.Tag;
+const ProductTag = db.ProductTag;
 
-module.exports = db;
+Product.belongsTo(Category, { foreignKey: 'category_id' });
+Category.hasMany(Product, { foreignKey: 'category_id' });
+Product.belongsToMany(Tag, { through: ProductTag, foreignKey: 'product_id', as: 'tags' });
+Tag.belongsToMany(Product, { through: ProductTag, foreignKey: 'tag_id', as: 'products' });
+
+// Export all models and associations
+module.exports = {
+  ...db,
+  Product,
+  Category,
+  Tag,
+  ProductTag,
+};
