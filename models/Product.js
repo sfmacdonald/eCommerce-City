@@ -52,7 +52,6 @@ Product.init(
   }
 );
 
-// Define the Product-Category association
 Product.belongsTo(Category, {
   foreignKey: 'category_id',
 });
