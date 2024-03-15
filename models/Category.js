@@ -27,10 +27,9 @@ Category.init(
   }
 );
 
-// Define the Product-Category association
-//Category.hasMany(Product, {
-  //foreignKey: 'category_id',
-//});
-
+//Define the Product-Category association
+Category.hasMany(Product, {
+  foreignKey: 'category_id',
+});
 
 module.exports = Category;
