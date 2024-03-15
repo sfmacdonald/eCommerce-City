@@ -2,6 +2,7 @@ const express = require('express');
 const { Category, Product } = require('../../models');
 const router = express.Router();
 
+// find all categories w/ associated Products
 router.get('/', async (req, res) => {
   try {
     const categoryData = await Category.findAll({
@@ -14,6 +15,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// find one category by ID w/ associated Products
 router.get('/:id', async (req, res) => {
   try {
     const categoryData = await Category.findByPk(req.params.id, {
@@ -32,6 +34,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// create new category
 router.post('/', async (req, res) => {
   try {
     const categoryData = await Category.create(req.body);
@@ -42,6 +45,7 @@ router.post('/', async (req, res) => {
   }
 });
 
+// update a category by ID
 router.put('/:id', async (req, res) => {
   try {
     const categoryData = await Category.update(req.body, {
@@ -60,6 +64,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
+// delete a category by ID
 router.delete('/:id', async (req, res) => {
   try {
     const categoryData = await Category.destroy({
