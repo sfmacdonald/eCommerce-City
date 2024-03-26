@@ -1,5 +1,6 @@
 // import important parts of sequelize library
 const { Model, DataTypes } = require('sequelize');
+
 // import our database connection from config.js
 const sequelize = require('../config/connection.js');
 
@@ -51,15 +52,5 @@ Product.init(
     modelName: 'product',
   }
 );
-
-Product.belongsTo(Category, {
-  foreignKey: 'category_id',
-});
-
-Product.belongsToMany(Tag, {
-  through: ProductTag,
-  foreignKey: 'product_id',
-  as: 'tags', // Optional: alias for when accessing the Tags from a Product instance
-});
 
 module.exports = Product;
