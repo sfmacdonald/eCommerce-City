@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Tag, Product, ProductTag } = require('../Develop/models'); // Assuming this is the correct path for your models
+const { Tag, Product, ProductTag } = require('../../models');
 
 // Get all tags with their associated Products
 router.get('/', (req, res) => {
